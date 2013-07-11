@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window [
+    <!ENTITY % optionsDTD SYSTEM "chrome://gnafi/locale/options.dtd">
+    %optionsDTD;
+]>
+
+<window class="dialog"
+	title="&win.title;"
+	onload="sizeToContent(); startup();"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ <hbox>
+  <groupbox pack="center" orient="vertical">
+    <hbox style="padding: 5px 5px 20px 2px">
+      <description value="&gnafi.label;" style="font-weight: bold; font-size: x-large;"/>
+      <spacer style="width:30px"/>
+    </hbox>
+    <vbox style="padding-top:10px;">
+      <text value="&menuOption.label;" style="font-weight:bold; font-size:14px; padding:0px 0px 2px 10px;"/> 
+      <radiogroup id="showMenuRadioGroup">
+       <radio id="showMenuRadio" label="&showMenu.label;" value="0"/>     
+       <radio id="hideMenuRadio" label="&hideMenu.label;" value="1"/>     
+      </radiogroup>
+    </vbox>
+    <spacer flex="1"/>
+    <hbox>
+      <vbox align="end" pack="end">
+      <button label="&ok.label;"/>
+      </vbox>
+      <spacer flex="1"/>
+      <image src="chrome://gnafi/skin/icon32.png" style="padding:3px"/>
+    </hbox>
+  </groupbox>
+  <box>
+    <image src="chrome://gnafi/skin/icon32.png" style="padding: 3px 0px 3px 5px"/>
+  </box>
+ </hbox>
+</window>

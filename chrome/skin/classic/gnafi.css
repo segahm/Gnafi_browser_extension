@@ -1,0 +1,35 @@
+#gnafi-button {
+  list-style-image: url("chrome://gnafi/skin/icon_toolbar.png");
+  -moz-image-region: rect(0px 24px 24px 0px);  
+}
+#gnafi-button:hover {
+  -moz-image-region: rect(24px 24px 48px 0px);
+}
+
+#gnafi-button[disabled="true"] { 
+  -moz-image-region: rect(48px 24px 72px 0px);
+}
+
+toolbar[iconsize="small"] #gnafi-button {
+  list-style-image: url("chrome://gnafi/skin/icon16.png");
+}
+gnafiurlbarbutton{
+	-moz-binding: url('chrome://gnafi/content/xbl.xml#urlbar-button');
+}
+.gnafi-dropmarker {
+  margin-top: 2px;
+  	margin-bottom: 1px;
+	-moz-binding: url('chrome://gnafi/content/xbl.xml#base');
+	-moz-user-focus: none;
+}
+.gnafi-dropmarker image{
+  z-index:10;
+  margin-left:-5px;
+  position:relative;
+  margin-top: 8px;
+  list-style-image: url("chrome://gnafi/skin/search-arrow.gif");
+}
+
+#page-proxy-deck{
+	z-index:1;margin-right:0px;
+}

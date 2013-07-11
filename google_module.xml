@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+  <ModulePrefs title="Gnafi Bookmarks" height="130" author_email="info@gnafi.com" thumbnail="http://gnafi.com/images/thumb.jpg" author_location="" author_affiliation="" screenshot="https://addons.mozilla.org/images/previews/gnafi-2.jpg" author="Sergey Mirkin" description="Gnafi stores your bookmarks online and keeps them synchronized between different places in your life: school, work, home.. It works through a downloadable extension that notes any changes automatically. Of course there are times when you need to access your bookmarks from a public place; for such times we've specifically made bookmarks easily accessible through this site as well."/> 
+  <UserPref name="tag" 
+       display_name="tag: " default_value="interesting" required="true"/>
+  <Content type="html">
+     <![CDATA[
+     <script id="gnafi-script" type="text/javascript">
+   	var prefs = new _IG_Prefs(__MODULE_ID__);
+  	 var tagStr = prefs.getString("tag");
+  	 var e = document.createElement('script');
+		e.type = "text/javascript";
+		e.src = "http://gnafi.com/snip/p/"+encodeURIComponent(tagStr)+"?&l=5&cutl=100&endappend=...&inout=docwrite";
+		var p = _gel("gnafi-script").parentNode;
+		p.appendChild(e);
+	</script> 
+     ]]>
+  </Content> 
+</Module>

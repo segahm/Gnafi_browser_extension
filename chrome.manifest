@@ -1,0 +1,9 @@
+#declare packages
+content gnafi chrome/content/
+locale gnafi en-US chrome/locale/en-US/
+skin gnafi classic/1.0 chrome/skin/classic/
+style chrome://global/content/customizeToolbar.xul chrome://gnafi/skin/
+#Firefox
+overlay chrome://browser/content/browser.xul chrome://gnafi/content/overlay.xul
+#Mozilla Suite
+overlay chrome://navigator/content/navigatorOverlay.xul chrome://gnafi/content/overlay.xul

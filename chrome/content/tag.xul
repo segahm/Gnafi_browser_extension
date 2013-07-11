@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://gnafi/locale/gnafi.dtd">
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://gnafi/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://gnafi/skin/tag.css" type="text/css"?>
+<dialog id="gnafiDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml" title=""
+	buttons="extra2, accept, cancel, extra1" buttonlabelextra1="&tagwindow.placeontoolbar;" persist="screenX screenY width height"
+	onload="GnafiTag.init();" ondialogaccept="GnafiTag.onAccept();">
+	<script type="text/javascript"
+		src="chrome://gnafi/content/common.js" />
+	<script type="text/javascript" src="chrome://gnafi/content/tag.js" />
+
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="gnafi-tag-stringbundle"
+			src="chrome://gnafi/locale/gnafi.properties" />
+	</stringbundleset>
+	<vbox>
+		<groupbox>
+			<caption id="gnafi-tag-caption" label=""/>
+			<grid flex="1">
+				<columns>
+					<column flex="1"/>
+					
+				</columns>
+				<rows>
+
+					<row align="left">
+						<box>
+							<label value="&tagwindow.title;"
+								control="gnafi_path" />
+							<textbox class="gnafi-tag-text" id="gnafi_path" flex="1"
+								type="autocomplete" autocompletesearch="gnafibookmarks"
+								autocompletesearchparam='noprefix nohistory catonly'
+								autocompletepopup="PopupAutoComplete"
+								completeselectedindex="true" tabscrolling="true"
+								showcommentcolumn="false" enablehistory="false" />
+						</box>
+					</row>
+					<row style="padding-top:5pt;">
+						<box>
+							<description id="gnafi-tag-comment">
+							</description>
+						</box>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+	</vbox>
+
+</dialog>
+

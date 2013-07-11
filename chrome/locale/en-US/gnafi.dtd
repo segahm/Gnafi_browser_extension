@@ -1,0 +1,39 @@
+<!ENTITY toolbarbutton.tooltip "Bookmark This Page!">
+
+<!ENTITY gnafi.menu.label "Gnafi">
+<!ENTITY gnafi.menu.accesskey "n">
+
+<!ENTITY tagthispage "Bookmark This Page">
+
+<!ENTITY gnafi.menu.showsidebar "Show links in this site">
+<!ENTITY gnafi.menu.mygnafi "My gnafi">
+<!ENTITY gnafi.menu.mygnafi.mod "alt">
+<!ENTITY gnafi.menu.mygnafi.key "M">
+<!ENTITY gnafi.menu.search "Search Gnafi">
+<!ENTITY gnafi.menu.sync "Synchronize">
+<!ENTITY gnafi.menu.hide "Hide This Menu">
+<!ENTITY gnafi.menu.site.key "S">
+<!ENTITY gnafi.menu.site.mod "alt">
+
+<!ENTITY searchbox.label "Bookmarks Search">
+<!ENTITY searchbox.tooltip "Search Local Bookmarks">
+
+<!ENTITY tagwindow.title "Path:">
+
+<!ENTITY tagwindow.placeontoolbar "Place on the Toolbar">
+
+<!ENTITY sidepanel.title "Gnafi Bookmarks">
+
+<!ENTITY urlbar.local "my bookmarks">
+<!ENTITY urlbar.site "this site">
+<!ENTITY urlbar.global "gnafi">
+
+<!ENTITY urlbar.cmd.global "Q">
+<!ENTITY urlbar.cmd.site "A">
+<!ENTITY urlbar.cmd.local "Z">
+
+<!ENTITY bookmarkLiveLink.access "B">
+
+<!ENTITY bookmarkLiveLinkCmd.label "Bookmark This Feed..">
+
+<!ENTITY gnafi.tools.switchview "Switch Bookmark View">

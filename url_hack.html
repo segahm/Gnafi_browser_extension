@@ -1,0 +1,13 @@
+<html>
+<body>
+<a href="" id="gnafi-feed-link">'+urlText +'</a>
+<script type="text/javascript">
+var path = encodeURIComponent('programming/a/hello');
+var o = document.getElementById('gnafi-feed-link');
+o.setAttribute('href','livefeed:path='+path+'&url=about:blank');
+if (!o.pathname){
+	o.setAttribute('onclick','window.location = "http://gnafi.com/download.xpi";return false;');
+}
+</script>
+</body>
+</html>

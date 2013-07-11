@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://gnafi/locale/gnafi.dtd">
+<?xml-stylesheet href="chrome://gnafi/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/searchbarBindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/searchbar.css" type="text/css"?>
+<overlay id="gnafiOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script type="text/javascript"
+		src="chrome://gnafi/content/common.js" />
+	<script type="application/x-javascript"
+		src="chrome://gnafi/content/overlay.js" />
+	<script type="application/x-javascript"
+		src="chrome://gnafi/content/datasource.js" />
+
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="gnafi-stringbundle"
+			src="chrome://gnafi/locale/gnafi.properties" />
+	</stringbundleset>
+
+	<commandset id="mainCommandSet">
+		<command id="gnafi-login-status"
+			oncommand="Gnafi.loginLogout();" label="" />
+		<command id="gnafiTagThisPage" label="&tagthispage;"
+			oncommand="curPage = Gnafi.curPage();BookmarksUtils.addBookmark(curPage.url,curPage.title);" />
+
+		<command id="command-urlbar-local-search"
+			oncommand="Gnafi.setAndUnselect('urlbar','b: ');" />
+		<command id="command-urlbar-site-search"
+			oncommand="Gnafi.setAndUnselect('urlbar','gnafi site:'+Gnafi.curPage().host+' ');" />
+		<command id="command-urlbar-global-search"
+			oncommand="Gnafi.setAndUnselect('urlbar','gn ');" />
+		<command id="gnafi-switchview-command"
+			oncommand="Gnafi.handleButtonCommand(event,'switchview');" />
+	</commandset>
+
+	<keyset id="mainKeyset">
+		<key id="urlbar-local-search" modifiers="alt"
+			key="&urlbar.cmd.local;" command="command-urlbar-local-search" />
+		<key id="urlbar-site-search" modifiers="alt"
+			key="&urlbar.cmd.site;" command="command-urlbar-site-search" />
+		<key id="urlbar-global-search" modifiers="alt"
+			key="&urlbar.cmd.global;" command="command-urlbar-global-search" />
+		<key id="gnafi-menu-mygnafi-key"
+			modifiers="&gnafi.menu.mygnafi.mod;" key="&gnafi.menu.mygnafi.key;"
+			command="gnafi-menu-mygnafi" />
+		<key id="gnafi-menu-site-key" modifiers="&gnafi.menu.site.mod;"
+			key="&gnafi.menu.site.key;" command="gnafiTagThisPage" />
+	</keyset>
+	<!-- sidebar -->
+	<broadcasterset id="mainBroadcasterSet">
+		<broadcaster id="gnafiSidebar" group="sidebar" sidebarurl=""
+			sidebartitle="&sidepanel.title;" />
+		<broadcaster id="gnafi-isoffline" />
+	</broadcasterset>
+	<toolbarpalette id="BrowserToolbarPalette">
+		<!-- gnafi button  -->
+		<toolbarbutton id="gnafi-button" command="gnafiTagThisPage"
+			tooltiptext="&toolbarbutton.tooltip;">
+			<observes element="gnafi-isoffline" attribute="disabled" />
+		</toolbarbutton>
+	</toolbarpalette>
+	<menubar id="main-menubar">
+		<menu id="gnadi-menu" label="&gnafi.menu.label;"
+			insertafter="helpMenu" accesskey="&gnafi.menu.accesskey;">
+			<menupopup>
+				<menuitem command="gnafi-login-status" />
+				<menuseparator id="gnafi-menu-separator1" />
+				<menuitem command="gnafiTagThisPage"
+					key="addBookmarkAsKb" />
+				<menuitem id="gnafi-menu-showsidebar"
+					key="gnafi-menu-site-key" label="&gnafi.menu.showsidebar;"
+					oncommand="Gnafi.handleButtonCommand(event,'sidebar');" />
+				<menuseparator id="gnafi-menu-separator2" />
+				<menuitem id="gnafi-menu-mygnafi"
+					label="&gnafi.menu.mygnafi;"
+					oncommand="Gnafi.handleButtonCommand(event,'mygnafi');"
+					key="gnafi-menu-mygnafi-key">
+					<observes element="gnafi-isoffline"
+						attribute="disabled" />
+				</menuitem>
+				<menuitem id="gnafi-menu-sync" label="&gnafi.menu.sync;"
+					oncommand="Gnafi.handleButtonCommand(event,'sync');">
+					<observes element="gnafi-isoffline"
+						attribute="disabled" />
+				</menuitem>
+			</menupopup>
+		</menu>
+	</menubar>
+	<menu id="menu_ToolsPopup">
+		<menuitem label="&gnafi.tools.switchview;"
+			insertafter="devToolsSeparator" command="gnafi-switchview-command" />
+	</menu>
+	<!-- live link -->
+	<popup id="contentAreaContextMenu">
+		<menuitem id="context-bookmarklivelink"
+			insertafter="context-bookmarklink"
+			label="&bookmarkLiveLinkCmd.label;"
+			accesskey="&bookmarkLiveLink.access;"
+			oncommand="BookmarksUtils.addLivemark(gContextMenu.linkText(),gContextMenu.linkURL,null,true);" />
+	</popup>
+	<script type="text/javascript">
+		<![CDATA[
+		function LinkPopup() {document.getElementById("context-bookmarklivelink").hidden = (!gContextMenu.onLink)}
+	]]>
+	</script>
+	<!-- urlbar  -->
+	<textbox id="urlbar" autocompletesearch='gnafibookmarks'
+		autocompletesearchparam='noprefix'>
+		<box id="gnafi-urlbar-proxyholder" insertbefore="page-proxy-deck"/>
+		<button type="menu" class="gnafi-dropmarker" insertafter="page-proxy-deck" popup="_child">
+			<image/>
+			<menupopup position="after_start">
+				<menuitem type="checkbox" key="urlbar-local-search"
+					src="chrome://gnafi/skin/urlbar.ico"
+					command="command-urlbar-local-search" label="&urlbar.local;" />
+				<menuitem type="checkbox" key="urlbar-site-search"
+					src="chrome://gnafi/skin/urlbar2.ico"
+					command="command-urlbar-site-search" label="&urlbar.site;" />
+				<menuitem type="checkbox" key="urlbar-global-search"
+					src="chrome://gnafi/skin/urlbar3.ico"
+					command="command-urlbar-global-search" label="&urlbar.global;" />
+			</menupopup>
+		</button>
+		<gnafiurlbarbutton id="gnafi-urlbar-button"/>
+	</textbox>
+</overlay>

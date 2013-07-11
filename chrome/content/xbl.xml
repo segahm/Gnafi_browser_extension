@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay [
+<!ENTITY % gnafiDTD SYSTEM "chrome://gnafi/locale/gnafi.dtd" >
+%gnafiDTD;
+]>
+<bindings xmlns="http://www.mozilla.org/xbl"
+	xmlns:xbl="http://www.mozilla.org/xbl"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<binding id="base">
+		<implementation>
+			<method name="getElementByAnonId">
+				<parameter name="anonid" />
+				<body>
+					<![CDATA[
+					return document.getAnonymousElementByAttribute(this,'anonid',anonid);
+				]]>
+				</body>
+			</method>
+		</implementation>
+	</binding>
+	<!-- main urlbar button -->
+	<binding id="urlbar-button"
+		extends="chrome://gnafi/content/xbl.xml#base">
+		<implementation>
+			<constructor>
+				<![CDATA[
+					var e = document.getElementById('page-proxy-deck');
+					document.getElementById('gnafi-urlbar-proxyholder').appendChild(e);
+					
+					urlbar = document.getElementById('urlbar'); 
+					//tree where search results are shown
+					tree = document.getElementById('treecolAutoCompleteValue').parentNode.parentNode;
+					onTextenteredDefaultHandler = null;
+					if (!(onTextenteredDefaultHandler = urlbar.getAttribute('ontextentered'))) 
+						onTextenteredDefaultHandler = urlbar.getAttribute('ontextcommand'); //mozilla
+					urlbar.onselect = this.selectHandler;
+					urlbar.setAttribute('ontextentered',
+						"document.getElementById('gnafi-urlbar-button').textEnteredHandler(param);");
+					selectedIndex = -1;
+					selectedValue = [];
+				]]>
+			</constructor>
+			<method name="selectHandler">
+			<parameter name="event"/>
+			<body>
+				<![CDATA[
+				if (tree && tree.currentIndex != -1){
+					selectedIndex = tree.currentIndex;
+					selectedValue[0] = tree.view.getCellText(selectedIndex,tree.columns[0]);
+					selectedValue[1] = tree.view.getCellText(selectedIndex,tree.columns[1]);
+				}
+				]]>
+			</body>
+			</method>
+			<!-- intercepts ontextentered requests but forwards them to the original handlers if not part of 
+				its logic -->
+			<method name="textEnteredHandler">
+				<parameter name="event" />
+				<body>
+					<![CDATA[
+					var originalValue = urlbar.value;
+					var v = originalValue.trim();
+					var which;
+					if (which = v.startsWith(['/','b:'])){
+						v = v.substr((which == 1)?0:(v.indexOf(':')+1)).trim();
+							//handling bookmark: requests
+							//make a request to a bookmark that matches the value best
+							var url = null;
+							//if no requests match this one, then ignore it
+							if (tree.view.rowCount > 0){
+								var nameColIndx = (v.charAt(0) == '/')?0:1;
+								//if we need to update the index
+								if (((tree.view.rowCount <= selectedIndex)
+										|| (selectedValue[nameColIndx] != originalValue))
+										&& (originalValue.indexOf(selectedValue[nameColIndx]) != 0)){
+									selectedIndex = 0;
+									selectedValue[0] = tree.view.getCellText(0,tree.columns[0]);
+									selectedValue[1] = tree.view.getCellText(0,tree.columns[1]);
+								}
+								url = nameColIndx?selectedValue[0]:selectedValue[1];
+								url = url?url:null;
+							}
+							if (url != null){
+								urlbar.value = url;
+							}else{
+								//NOTE: currently this prevents new searches from appearing, requiring the user
+								//to enter an additional keyword
+								return;	//do nothing
+							}
+					}
+					var param = event;	//alias
+					//do a default action
+					if (onTextenteredDefaultHandler.indexOf('return ') != -1)
+						return eval(onTextenteredDefaultHandler.strReplace('return ',''));
+					else
+						eval(onTextenteredDefaultHandler);
+			]]>
+				</body>
+			</method>
+		</implementation>
+	</binding>
+</bindings>

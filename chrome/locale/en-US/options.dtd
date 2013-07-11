@@ -1,0 +1,7 @@
+<!ENTITY win.title		"Gnafi options">
+<!ENTITY gnafi.label	"gnafi">
+<!ENTITY menuOption.label	"Menu Option">
+<!ENTITY showMenu.label		"Show Menu">
+<!ENTITY hideMenu.label		"Hide Menu">
+<!ENTITY close.label		"Close">
+<!ENTITY ok.label		"OK">
